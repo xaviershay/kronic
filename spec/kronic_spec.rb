@@ -17,7 +17,8 @@ describe Kronic do
     {
       :today  => Date.new(2010, 9, 19),
       :monday => Date.new(2010, 9, 13),
-      :sep_4  => Date.new(2010, 9, 4)
+      :sep_4  => Date.new(2010, 9, 4),
+      :sep_20 => Date.new(2009, 9, 20)
     }.fetch(key)
   end
 
@@ -32,10 +33,12 @@ describe Kronic do
   should_parse('Last Monday', date(:monday))
   should_parse('4 Sep',       date(:sep_4))
   should_parse('4 September', date(:sep_4))
+  should_parse('20 Sep',      date(:sep_20))
   should_parse('14 Sep 2008', Date.new(2008, 9, 14))
   should_parse('bogus',       nil)
   should_parse('14',          nil)
   should_parse('14 bogus in', nil)
+  should_parse('14 September oen', nil)
 
   should_format('Today',       date(:today))
   should_format('Yesterday',   date(:today) - 1.day)

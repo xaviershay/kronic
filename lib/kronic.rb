@@ -43,9 +43,13 @@ class Kronic
     if tokens[0] =~ /^[0-9]+$/
       day   = tokens[0].to_i
       month = month_from_name(tokens[1])
-      year  = tokens[2] ? tokens[2].to_i : today.year
+      year  = if tokens[2]
+        tokens[2] =~ /^[0-9]+$/ ? tokens[2].to_i : nil
+      else
+        today.year
+      end
 
-      return nil unless month
+      return nil unless day && month && year
 
       result = Date.new(year, month, day)
       result -= 1.year if result > Date.today
