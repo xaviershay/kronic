@@ -1,2 +1,5 @@
+0.1.1 - 19 September 2010
+  * Kronic.parse will explode in fewer scenarios!
+
 0.1 - 19 September 2010
   * Initial release!
