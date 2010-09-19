@@ -26,13 +26,14 @@ class Kronic
 
     return Date.today     if string == 'today'
     return Date.yesterday if string == 'yesterday'
+    return Date.tomorrow if string == 'tomorrow'
 
     tokens = string.split(/\s+/)
 
-    # Last X
-    if tokens[0] == 'last'
+    # Last|Next X
+    if tokens[0] == 'last' || tokens[0] == 'next'
       days = (1..7).map {|x| 
-        (Date.today - x.days) 
+        tokens[0] == 'last' ? (Date.today - x.days) : (Date.today + x.days)
       }.inject({}) {|a, x| 
         a.update(x.strftime("%A").downcase => x) 
       }
@@ -40,7 +41,7 @@ class Kronic
     end
 
     # 14 Sep, 14 September, 14 September 2010
-    if tokens[0] =~ /^[0-9]+$/
+    if tokens[0] =~ /^[0-9]+$/ && tokens[1]
       day   = tokens[0].to_i
       month = month_from_name(tokens[1])
       year  = if tokens[2]
