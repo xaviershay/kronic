@@ -1,0 +1,24 @@
+= Kronic
+
+A dirt simple library for parsing human readable dates (Today, Yesterday, Last Monday).
+
+== Why not Chronic or Tickle
+
+Chronic and Tickle both parse a *heap* of formats. That's not useful to me when they fail on cases I want (14 Sep), and also not useful because I don't need times or spans. I just want to replace my calendar picker.
+
+In addition, Kronic can take a date and give you a human readable form, neither of which Chronic nor Tickle does.
+
+Oh yeah, Kronic is less than 60 lines of code.
+
+== Usage
+
+  gem install kronic
+
+  Kronic.parse("Today")     # => Date.today
+  Kronic.format(Date.today) # => "Today"
+
+See the specs for all the supported formats (there are not many).
+
+== Future
+
+I only need date selection in the past for my application, so Kronic only does that so far. I'm not opposed to support "next monday", patches welcome. Kronic will be totally timezone aware. It may or may not be now, I haven't specced it.
