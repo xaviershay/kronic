@@ -3,8 +3,25 @@ require 'active_support/duration'
 require 'active_support/time_with_zone'
 
 class Kronic
+  # Converts a human readable day (Today, yesterday) to a date in the past.
+  # Supported inputs include Today, yesterday, last thursday, 14 Sep, 14
+  # June 2010, all case-insensitive.
+  #
+  # Will call #to_s on the input, so can process Symbols or whatever other
+  # object you wish to throw at it.
   def self.parse(string)
-    string = string.downcase
+    # TODO: You could totally clean this method up, if you wanted
+    def self.month_from_name(month)
+      months = (1..12).map {|x|
+        Date.new(2010, x, 1)
+      }.inject({}) {|a, x|
+        a.update(x.strftime("%B").downcase => x.month)
+      }
+      
+      months[month] || months.detect {|name, number| name.starts_with?(month) }.try(:last)
+    end
+
+    string = string.to_s.downcase
     today  = Date.today
 
     return Date.today     if string == 'today'
@@ -12,6 +29,7 @@ class Kronic
 
     tokens = string.split(/\s+/)
 
+    # Last X
     if tokens[0] == 'last'
       days = (1..7).map {|x| 
         (Date.today - x.days) 
@@ -21,8 +39,8 @@ class Kronic
       return days[tokens[1]]
     end
 
+    # 14 Sep, 14 September, 14 September 2010
     if tokens[0] =~ /^[0-9]+$/
-
       day   = tokens[0].to_i
       month = month_from_name(tokens[1])
       year  = tokens[2] ? tokens[2].to_i : today.year
@@ -37,16 +55,7 @@ class Kronic
     nil
   end
 
-  def self.month_from_name(month)
-    months = (1..12).map {|x|
-      Date.new(2010, x, 1)
-    }.inject({}) {|a, x|
-      a.update(x.strftime("%B").downcase => x.month)
-    }
-    
-    months[month] || months.detect {|name, number| name.starts_with?(month) }.last
-  end
-
+  # Converts a date to a human readable string.
   def self.format(date, opts = {})
     case ((opts[:today] || Date.today).to_date - date.to_date).to_i
       when 0      then "Today"
