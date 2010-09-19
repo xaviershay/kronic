@@ -17,7 +17,7 @@ Oh yeah, Kronic is less than 60 lines of code.
   Kronic.parse("Today")     # => Date.today
   Kronic.format(Date.today) # => "Today"
 
-See the specs for all the supported formats (there are not many).
+Supported formats: Today, yesterday, last thursday, 14 Sep, 14 June 2010
 
 == Future
 
