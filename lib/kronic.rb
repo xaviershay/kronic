@@ -30,8 +30,8 @@ class Kronic
 
     tokens = string.split(/\s+/)
 
-    # Last|Next X
-    if tokens[0] == 'last' || tokens[0] == 'next'
+    # Last|This X
+    if tokens[0] == 'last' || tokens[0] == 'this'
       days = (1..7).map {|x| 
         tokens[0] == 'last' ? (Date.today - x.days) : (Date.today + x.days)
       }.inject({}) {|a, x| 
