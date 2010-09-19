@@ -14,6 +14,7 @@ Oh yeah, Kronic is less than 60 lines of code.
 
   gem install kronic
 
+  require 'kronic'
   Kronic.parse("Today")     # => Date.today
   Kronic.format(Date.today) # => "Today"
 
