@@ -21,7 +21,7 @@ class Kronic
       months[month] || months.detect {|name, number| name.starts_with?(month) }.try(:last)
     end
 
-    string = string.to_s.downcase
+    string = string.to_s.downcase.strip
     today  = Date.today
 
     return Date.today     if string == 'today'
