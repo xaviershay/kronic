@@ -1,4 +1,4 @@
-require 'active_support/core_ext'
+require 'date'
 
 class Kronic
   # Public: Converts a human readable day (Today, yesterday) to a Date.
@@ -44,20 +44,19 @@ class Kronic
 
     # Examples
     #
-    #   month_from_name("January") # => 1
-    #   month_from_name("Jan")     # => 1
+    #   month_from_name("january") # => 1
+    #   month_from_name("jan")     # => 1
     def month_from_name(month)
-      return nil unless month
-
-      human_month = month.downcase.humanize
-      Date::MONTHNAMES.index(human_month) || Date::ABBR_MONTHNAMES.index(human_month)
+      month = Date::MONTHNAMES.compact.map {|x| x.downcase }.index(month) ||  
+        Date::ABBR_MONTHNAMES.compact.map {|x| x.downcase }.index(month)
+      month ? month + 1 : nil
     end
 
     # Parse "Today", "Tomorrow" and "Yesterday"
     def parse_nearby_days(string, today)
-      return today         if string == 'today'
-      return today - 1.day if string == 'yesterday'
-      return today + 1.day if string == 'tomorrow'
+      return today     if string == 'today'
+      return today - 1 if string == 'yesterday'
+      return today + 1 if string == 'tomorrow'
     end
 
     # Parse "Last Monday", "This Monday"
@@ -66,7 +65,7 @@ class Kronic
 
       if %w(last this).include?(tokens[0])
         days = (1..7).map {|x| 
-          today + (tokens[0] == 'last' ? -x.days : x.days)
+          today + (tokens[0] == 'last' ? -x : x)
         }.inject({}) {|a, x| 
           a.update(x.strftime("%A").downcase => x) 
         }
@@ -91,7 +90,7 @@ class Kronic
         return nil unless day && month && year
 
         result = Date.new(year, month, day)
-        result -= 1.year if result > today
+        result = result << 12 if result > today
         result
       end
     end
