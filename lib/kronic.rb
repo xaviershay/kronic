@@ -1,12 +1,16 @@
 require 'active_support/core_ext'
 
 class Kronic
-  # Converts a human readable day (Today, yesterday) to a date in the past.
-  # Supported inputs include Today, yesterday, last thursday, 14 Sep, 14
-  # June 2010, all case-insensitive.
+  # Public: Converts a human readable day (Today, yesterday) to a Date.
   #
   # Will call #to_s on the input, so can process Symbols or whatever other
   # object you wish to throw at it.
+  #
+  # string - The String to convert to a Date. Supported formats are: Today,
+  #          yesterday, tomorrow, last thursday, this thursday, 14 Sep,
+  #          14 June 2010. Parsing is case-insensitive.
+  #
+  # Returns the Date, or nil if the input could not be parsed.
   def self.parse(string)
     string = string.to_s.downcase.strip
     today  = Date.today
@@ -16,7 +20,14 @@ class Kronic
       parse_exact_date(string, today)
   end
 
-  # Converts a date to a human readable string.
+  # Public: Converts a date to a human readable string.
+  #
+  # date - The Date to be converted
+  # opts - The Hash options used to customize formatting
+  #        :today - The reference point for calculations (default: Date.today)
+  #
+  # Returns a relative string ("Today", "This Monday") if available, otherwise
+  # the full representation of the date ("19 September 2010").
   def self.format(date, opts = {})
     case (date.to_date - (opts[:today] || Date.today)).to_i
       when (2..7)   then "This " + date.strftime("%A")
@@ -31,6 +42,10 @@ class Kronic
   class << self
     private
 
+    # Examples
+    #
+    #   month_from_name("January") # => 1
+    #   month_from_name("Jan")     # => 1
     def month_from_name(month)
       return nil unless month
 
@@ -38,12 +53,14 @@ class Kronic
       Date::MONTHNAMES.index(human_month) || Date::ABBR_MONTHNAMES.index(human_month)
     end
 
+    # Parse "Today", "Tomorrow" and "Yesterday"
     def parse_nearby_days(string, today)
       return today         if string == 'today'
       return today - 1.day if string == 'yesterday'
       return today + 1.day if string == 'tomorrow'
     end
 
+    # Parse "Last Monday", "This Monday"
     def parse_last_or_this_day(string, today)
       tokens = string.split(/\s+/)
 
@@ -58,10 +75,10 @@ class Kronic
       end
     end
 
+    # Parse "14 Sep, 14 September, 14 September 2010"
     def parse_exact_date(string, today)
       tokens = string.split(/\s+/)
 
-      # 14 Sep, 14 September, 14 September 2010
       if tokens[0] =~ /^[0-9]+$/ && tokens[1]
         day   = tokens[0].to_i
         month = month_from_name(tokens[1])
