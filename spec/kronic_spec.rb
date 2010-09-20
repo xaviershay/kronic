@@ -24,7 +24,7 @@ describe Kronic do
     }.fetch(key)
   end
 
-  before :all do
+  before :all do 
     Timecop.freeze(self.class.date(:today))
   end
 
@@ -42,6 +42,9 @@ describe Kronic do
   should_parse('20 Sep',      date(:sep_20))
   should_parse('28 Sep 2010', date(:sep_28))
   should_parse('14 Sep 2008', Date.new(2008, 9, 14))
+  should_parse('14th Sep 2008', Date.new(2008, 9, 14))
+  should_parse('23rd Sep 2008', Date.new(2008, 9, 23))
+  should_parse('September 14 2008', Date.new(2008, 9, 14))
   should_parse('bogus',       nil)
   should_parse('14',          nil)
   should_parse('14 bogus in', nil)
