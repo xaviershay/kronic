@@ -75,25 +75,35 @@ class Kronic
       end
     end
 
-    # Parse "14 Sep, 14 September, 14 September 2010"
+    # Parse "14 Sep", "14 September", "14 September 2010", "Sept 14 2010"
     def parse_exact_date(string, today)
       tokens = string.split(/\s+/)
 
-      if tokens[0] =~ /^[0-9]+$/ && tokens[1]
-        day   = tokens[0].to_i
-        month = month_from_name(tokens[1])
-        year  = if tokens[2]
-          tokens[2] =~ /^[0-9]+$/ ? tokens[2].to_i : nil
-        else
-          today.year
-        end
-
-        return nil unless day && month && year
-
-        result = Date.new(year, month, day)
-        result = result << 12 if result > today && !tokens[2]
-        result
+      if tokens[0] =~ /^[0-9]+(st|nd|rd|th)?$/ && tokens[1]
+        parse_exact_date_parts(tokens[0], tokens[1], tokens[2], today)
+      elsif tokens[1] =~ /^[0-9]+(st|nd|rd|th)?$/ && tokens[0]
+        parse_exact_date_parts(tokens[1], tokens[0], tokens[2], today)
       end
+    end
+    
+    private
+    
+    # Parses day, month and year parts
+    def parse_exact_date_parts(raw_day, raw_month, raw_year, today)
+      
+      day   = raw_day.to_i
+      month = month_from_name(raw_month)
+      year = if raw_year
+        raw_year =~ /^[0-9]+$/ ? raw_year.to_i : nil
+      else
+        today.year
+      end
+
+      return nil unless day && month && year
+
+      result = Date.new(year, month, day)
+      result = result << 12 if result > today && !raw_year
+      result
     end
   end
 end
