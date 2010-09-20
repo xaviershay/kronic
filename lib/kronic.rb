@@ -17,7 +17,7 @@ class Kronic
       }.inject({}) {|a, x|
         a.update(x.strftime("%B").downcase => x.month)
       }
-      
+
       months[month] || months.detect {|name, number| name.starts_with?(month) }.try(:last)
     end
 
@@ -31,10 +31,10 @@ class Kronic
 
     # Last X
     if tokens[0] == 'last'
-      days = (1..7).map {|x| 
-        (Date.today - x.days) 
-      }.inject({}) {|a, x| 
-        a.update(x.strftime("%A").downcase => x) 
+      days = (1..7).map {|x|
+        (Date.today - x.days)
+      }.inject({}) {|a, x|
+        a.update(x.strftime("%A").downcase => x)
       }
       return days[tokens[1]]
     end
