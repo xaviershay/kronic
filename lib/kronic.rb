@@ -49,10 +49,12 @@ class Kronic
 
   # Converts a date to a human readable string.
   def self.format(date, opts = {})
-    case ((opts[:today] || Date.today).to_date - date.to_date).to_i
-      when 0      then "Today"
-      when 1      then "Yesterday"
-      when (2..7) then "Last " + date.strftime("%A")
+    case (date.to_date - (opts[:today] || Date.today)).to_i
+      when (2..7)   then "This " + date.strftime("%A")
+      when 1        then "Tomorrow"
+      when 0        then "Today"
+      when -1       then "Yesterday"
+      when (-7..-2) then "Last " + date.strftime("%A")
       else              date.strftime("%e %B %Y").strip
     end
   end

@@ -15,7 +15,7 @@ describe Kronic do
 
   def self.date(key)
     {
-      :today  => Date.new(2010, 9, 19),
+      :today       => Date.new(2010, 9, 18),
       :last_monday => Date.new(2010, 9, 13),
       :next_monday => Date.new(2010, 9, 20),
       :sep_4  => Date.new(2010, 9, 4),
@@ -24,7 +24,7 @@ describe Kronic do
   end
 
   before :all do
-    Timecop.freeze(Date.new(2010, 9, 19))
+    Timecop.freeze(self.class.date(:today))
   end
 
   should_parse('Today',       date(:today))
@@ -47,6 +47,8 @@ describe Kronic do
 
   should_format('Today',       date(:today))
   should_format('Yesterday',   date(:today) - 1.day)
+  should_format('Tomorrow',    date(:today) + 1.day)
   should_format('Last Monday', date(:last_monday))
+  should_format('This Monday', date(:next_monday))
   should_format('14 September 2008', Date.new(2008, 9, 14))
 end
