@@ -47,8 +47,9 @@ class Kronic
     #   month_from_name("january") # => 1
     #   month_from_name("jan")     # => 1
     def month_from_name(month)
-      month = Date::MONTHNAMES.compact.map {|x| x.downcase }.index(month) ||  
-        Date::ABBR_MONTHNAMES.compact.map {|x| x.downcase }.index(month)
+      f = lambda {|months| months.compact.map {|x| x.downcase }.index(month) }
+
+      month = f[Date::MONTHNAMES] || f[Date::ABBR_MONTHNAMES]
       month ? month + 1 : nil
     end
 
