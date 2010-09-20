@@ -10,25 +10,19 @@ class Kronic
   # Will call #to_s on the input, so can process Symbols or whatever other
   # object you wish to throw at it.
   def self.parse(string)
-    def self.month_from_name(month)
-      return nil unless month
-      human_month = month.downcase.humanize
-      Date::MONTHNAMES.index(human_month) || Date::ABBR_MONTHNAMES.index(human_month)
-    end
-
     string = string.to_s.downcase.strip
     today  = Date.today
 
     return Date.today     if string == 'today'
     return Date.yesterday if string == 'yesterday'
-    return Date.tomorrow if string == 'tomorrow'
+    return Date.tomorrow  if string == 'tomorrow'
 
     tokens = string.split(/\s+/)
 
     # Last|This X
-    if tokens[0] == 'last' || tokens[0] == 'this'
+    if %w(last this).include?(tokens[0])
       days = (1..7).map {|x| 
-        tokens[0] == 'last' ? (Date.today - x.days) : (Date.today + x.days)
+        Date.today + (tokens[0] == 'last' ? -x.days : x.days)
       }.inject({}) {|a, x| 
         a.update(x.strftime("%A").downcase => x) 
       }
@@ -64,4 +58,12 @@ class Kronic
       else              date.strftime("%e %B %Y").strip
     end
   end
+
+  def self.month_from_name(month)
+    return nil unless month
+
+    human_month = month.downcase.humanize
+    Date::MONTHNAMES.index(human_month) || Date::ABBR_MONTHNAMES.index(human_month)
+  end
+  private_class_method :month_from_name
 end

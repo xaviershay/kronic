@@ -32,7 +32,7 @@ describe Kronic do
   should_parse('today',       date(:today))
   should_parse('  Today',     date(:today))
   should_parse('Yesterday',   date(:today) - 1.day)
-  should_parse('Tomorrow',   date(:today) + 1.day)
+  should_parse('Tomorrow',    date(:today) + 1.day)
   should_parse('Last Monday', date(:last_monday))
   should_parse('This Monday', date(:next_monday))
   should_parse('4 Sep',       date(:sep_4))
@@ -43,7 +43,7 @@ describe Kronic do
   should_parse('bogus',       nil)
   should_parse('14',          nil)
   should_parse('14 bogus in', nil)
-  should_parse('14 September oen', nil)
+  should_parse('14 June oen', nil)
 
   should_format('Today',       date(:today))
   should_format('Yesterday',   date(:today) - 1.day)
