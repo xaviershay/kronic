@@ -10,15 +10,10 @@ class Kronic
   # Will call #to_s on the input, so can process Symbols or whatever other
   # object you wish to throw at it.
   def self.parse(string)
-    # TODO: You could totally clean this method up, if you wanted
     def self.month_from_name(month)
-      months = (1..12).map {|x|
-        Date.new(2010, x, 1)
-      }.inject({}) {|a, x|
-        a.update(x.strftime("%B").downcase => x.month)
-      }
-
-      months[month] || months.detect {|name, number| name.starts_with?(month) }.try(:last)
+      return nil unless month
+      human_month = month.downcase.humanize
+      Date::MONTHNAMES.index(human_month) || Date::ABBR_MONTHNAMES.index(human_month)
     end
 
     string = string.to_s.downcase.strip
