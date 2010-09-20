@@ -91,7 +91,7 @@ class Kronic
         return nil unless day && month && year
 
         result = Date.new(year, month, day)
-        result = result << 12 if result > today
+        result = result << 12 if result > today && !tokens[2]
         result
       end
     end
