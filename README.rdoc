@@ -8,7 +8,7 @@ Chronic and Tickle both parse a *heap* of formats. That's not useful to me when 
 
 In addition, Kronic can take a date and give you a human readable form, neither of which Chronic nor Tickle does.
 
-Oh yeah, Kronic is less than 60 lines of code.
+Oh yeah, Kronic is less than 100 lines of code.
 
 == Usage
 
@@ -18,8 +18,8 @@ Oh yeah, Kronic is less than 60 lines of code.
   Kronic.parse("Today")     # => Date.today
   Kronic.format(Date.today) # => "Today"
 
-Supported formats: Today, yesterday, last thursday, 14 Sep, 14 June 2010
+Supported formats: Today, yesterday, tomorrow, last thursday, this thursday, 14 Sep, 14 June 2010. Any dates without a year are assumed to be in the past.
 
 == Future
 
-I only need date selection in the past for my application, so Kronic only does that so far. I'm not opposed to support "next monday", patches welcome. Kronic will be totally timezone aware. It may or may not be now, I haven't specced it.
+Kronic will be totally timezone aware. It may or may not be now, I haven't specced it. Maybe a flag to toggle interpretation of dates without years.

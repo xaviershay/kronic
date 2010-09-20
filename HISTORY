@@ -1,3 +1,7 @@
+Unreleased
+  * Support "tomorrow"
+  * Support "this monday"
+
 0.1.1 - 19 September 2010
   * Kronic.parse will explode in fewer scenarios!
 
