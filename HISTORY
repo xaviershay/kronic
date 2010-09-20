@@ -1,5 +1,6 @@
-Unreleased
+0.2.1
   * Removed dependency on active_support, no external dependencies!
+  * Dates in the future with a year specified are parsed correctly
 
 0.2.0
   * Support "tomorrow"
