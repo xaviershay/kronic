@@ -10,8 +10,11 @@ Gem::Specification.new do |s|
 
   s.files        = Dir.glob("{spec,lib}/**/*") + %w(README.rdoc HISTORY Rakefile)
   s.require_path = 'lib'
-  %w(activesupport).each do |dep|
+  %w(activesupport i18n).each do |dep|
     s.add_dependency dep
   end
+
+  s.add_development_dependency 'rspec', '>= 2.0.0.beta.16'
+  s.add_development_dependency 'timecop'
 end
 
