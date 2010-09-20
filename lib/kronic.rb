@@ -1,6 +1,4 @@
 require 'active_support/core_ext'
-require 'active_support/duration'
-require 'active_support/time_with_zone'
 
 class Kronic
   # Converts a human readable day (Today, yesterday) to a date in the past.

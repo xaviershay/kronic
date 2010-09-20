@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
 
   s.files        = Dir.glob("{spec,lib}/**/*") + %w(README.rdoc HISTORY Rakefile)
   s.require_path = 'lib'
-  %w(activesupport i18n).each do |dep|
+  %w(activesupport i18n).each do |dep| # i18n needed for activesupport date extensions
     s.add_dependency dep
   end
 
