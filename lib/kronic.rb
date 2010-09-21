@@ -29,7 +29,7 @@ class Kronic
   # Returns a relative string ("Today", "This Monday") if available, otherwise
   # the full representation of the date ("19 September 2010").
   def self.format(date, opts = {})
-    case (date.to_date - (opts[:today] || Date.today)).to_i
+    case (date - (opts[:today] || Date.today)).to_i
       when (2..7)   then "This " + date.strftime("%A")
       when 1        then "Tomorrow"
       when 0        then "Today"
