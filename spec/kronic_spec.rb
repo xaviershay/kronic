@@ -23,9 +23,10 @@ describe Kronic do
       :sep_28 => Date.new(2010, 9, 28)
     }.fetch(key)
   end
+  def date(key); self.class.date(key); end;
 
   before :all do 
-    Timecop.freeze(self.class.date(:today))
+    Timecop.freeze(date(:today))
   end
 
   should_parse('Today',       date(:today))
@@ -58,4 +59,15 @@ describe Kronic do
   should_format('Last Monday', date(:last_monday))
   should_format('This Monday', date(:next_monday))
   should_format('14 September 2008', Date.new(2008, 9, 14))
+
+  it 'should support i18n when parsing' do
+    Kronic.parse('T').should == nil
+    Kronic.translations.update(:today => 'T')
+    Kronic.parse('T').should == date(:today)
+  end
+
+  it 'should support i18n when formatting' do
+     Kronic.translations.update(:today => 'T')
+    Kronic.format(Date.today).should == 'T'
+  end
 end

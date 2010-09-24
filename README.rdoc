@@ -1,3 +1,7 @@
+= This Branch
+
+Playing around with an i18n API. Probably want to use the i18n gem or something. I don't actually use this, I'm just screwing around.
+
 = Kronic
 
 A dirt simple library for parsing human readable dates (Today, Yesterday, Last Monday).

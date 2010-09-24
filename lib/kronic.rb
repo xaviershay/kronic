@@ -30,16 +30,34 @@ class Kronic
   # the full representation of the date ("19 September 2010").
   def self.format(date, opts = {})
     case (date - (opts[:today] || Date.today)).to_i
-      when (2..7)   then "This " + date.strftime("%A")
-      when 1        then "Tomorrow"
-      when 0        then "Today"
-      when -1       then "Yesterday"
-      when (-7..-2) then "Last " + date.strftime("%A")
+      when (2..7)   then t[:this] + " " + date.strftime("%A")
+      when 1        then t[:tomorrow]
+      when 0        then t[:today]
+      when -1       then t[:yesterday]
+      when (-7..-2) then t[:last] + " " + date.strftime("%A")
       else              date.strftime("%e %B %Y").strip
     end
   end
 
+  # Public: The translations used for parsing and formatting. 
+  #
+  # Returns a hash containing key/value pairs. This hash is mutable, meaning
+  # you should update it to change the translations.
+  def self.translations
+    @translations ||= {
+      :this        => 'This',
+      :tomorrow    => 'Tomorrow',
+      :today       => 'Today',
+      :yesterday   => 'Yesterday',
+      :last        => 'Last',
+      :months      => Date::MONTHNAMES,
+      :months_abbr => Date::ABBR_MONTHNAMES
+    }
+  end
+
   class << self
+    alias_method :t, :translations
+
     private
 
     NUMBER              = /^[0-9]+$/
@@ -52,15 +70,15 @@ class Kronic
     def month_from_name(month)
       f = lambda {|months| months.compact.map {|x| x.downcase }.index(month) }
 
-      month = f[Date::MONTHNAMES] || f[Date::ABBR_MONTHNAMES]
+      month = f[t[:months]] || f[t[:months_abbr]]
       month ? month + 1 : nil
     end
 
     # Parse "Today", "Tomorrow" and "Yesterday"
     def parse_nearby_days(string, today)
-      return today     if string == 'today'
-      return today - 1 if string == 'yesterday'
-      return today + 1 if string == 'tomorrow'
+      return today     if string == t[:today    ].downcase
+      return today - 1 if string == t[:yesterday].downcase
+      return today + 1 if string == t[:tomorrow ].downcase
     end
 
     # Parse "Last Monday", "This Monday"
@@ -69,7 +87,7 @@ class Kronic
 
       if %w(last this).include?(tokens[0])
         days = (1..7).map {|x| 
-          today + (tokens[0] == 'last' ? -x : x)
+          today + (tokens[0] == t[:last].downcase ? -x : x)
         }.inject({}) {|a, x| 
           a.update(x.strftime("%A").downcase => x) 
         }
