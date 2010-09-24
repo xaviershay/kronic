@@ -8,7 +8,7 @@ Chronic and Tickle both parse a *heap* of formats. That's not useful to me when 
 
 In addition, Kronic can take a date and give you a human readable form, neither of which Chronic nor Tickle does.
 
-Oh yeah, Kronic is less than 100 lines of code.
+Oh yeah, Kronic is about 100 lines of code.
 
 == Usage
 

@@ -8,7 +8,7 @@ class Kronic
   #
   # string - The String to convert to a Date. Supported formats are: Today,
   #          yesterday, tomorrow, last thursday, this thursday, 14 Sep,
-  #          14 June 2010. Parsing is case-insensitive.
+  #          Sep 14, 14 June 2010. Parsing is case-insensitive.
   #
   # Returns the Date, or nil if the input could not be parsed.
   def self.parse(string)
@@ -41,6 +41,9 @@ class Kronic
 
   class << self
     private
+
+    NUMBER              = /^[0-9]+$/
+    NUMBER_WITH_ORDINAL = /^[0-9]+(st|nd|rd|th)?$/
 
     # Examples
     #
@@ -79,22 +82,21 @@ class Kronic
     def parse_exact_date(string, today)
       tokens = string.split(/\s+/)
 
-      if tokens[0] =~ /^[0-9]+(st|nd|rd|th)?$/ && tokens[1]
-        parse_exact_date_parts(tokens[0], tokens[1], tokens[2], today)
-      elsif tokens[1] =~ /^[0-9]+(st|nd|rd|th)?$/ && tokens[0]
-        parse_exact_date_parts(tokens[1], tokens[0], tokens[2], today)
+      if tokens.length >= 2
+        if    tokens[0] =~ NUMBER_WITH_ORDINAL
+          parse_exact_date_parts(tokens[0], tokens[1], tokens[2], today)
+        elsif tokens[1] =~ NUMBER_WITH_ORDINAL
+          parse_exact_date_parts(tokens[1], tokens[0], tokens[2], today)
+        end
       end
     end
     
-    private
-    
     # Parses day, month and year parts
     def parse_exact_date_parts(raw_day, raw_month, raw_year, today)
-      
       day   = raw_day.to_i
       month = month_from_name(raw_month)
       year = if raw_year
-        raw_year =~ /^[0-9]+$/ ? raw_year.to_i : nil
+        raw_year =~ NUMBER ? raw_year.to_i : nil
       else
         today.year
       end
