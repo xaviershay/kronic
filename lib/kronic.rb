@@ -40,6 +40,9 @@ class Kronic
   end
 
   class << self
+    LOWER_MONTHNAMES = Date::MONTHNAMES.map {|m| m.nil? ? nil : m.downcase}
+    LOWER_ABBR_MONTHNAMES = Date::ABBR_MONTHNAMES.map {|m| m.nil? ? nil : m.downcase}
+
     private
 
     NUMBER              = /^[0-9]+$/
@@ -50,10 +53,7 @@ class Kronic
     #   month_from_name("january") # => 1
     #   month_from_name("jan")     # => 1
     def month_from_name(month)
-      f = lambda {|months| months.compact.map {|x| x.downcase }.index(month) }
-
-      month = f[Date::MONTHNAMES] || f[Date::ABBR_MONTHNAMES]
-      month ? month + 1 : nil
+      LOWER_MONTHNAMES.index(month) || LOWER_ABBR_MONTHNAMES.index(month)
     end
 
     # Parse "Today", "Tomorrow" and "Yesterday"
