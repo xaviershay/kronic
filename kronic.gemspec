@@ -13,5 +13,7 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency 'rspec', '>= 2.0.0.beta.16'
   s.add_development_dependency 'timecop'
+  s.add_development_dependency 'activesupport'
+  s.add_development_dependency 'tzinfo'
 end
 

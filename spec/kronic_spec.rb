@@ -18,14 +18,18 @@ describe Kronic do
       :today       => Date.new(2010, 9, 18),
       :last_monday => Date.new(2010, 9, 13),
       :next_monday => Date.new(2010, 9, 20),
-      :sep_4  => Date.new(2010, 9, 4),
-      :sep_20 => Date.new(2009, 9, 20),
-      :sep_28 => Date.new(2010, 9, 28)
+      :sep_4       => Date.new(2010, 9, 4),
+      :sep_20      => Date.new(2009, 9, 20),
+      :sep_28      => Date.new(2010, 9, 28)
     }.fetch(key)
   end
+  def date(key); self.class.date(key); end;
 
-  before :all do 
-    Timecop.freeze(self.class.date(:today))
+  before :each do 
+    Time.zone = nil
+    ENV['TZ'] = "Australia/Melbourne"
+    d = date(:today)
+    Timecop.freeze(Time.utc(d.year, d.month, d.day))
   end
 
   should_parse('Today',       date(:today))
@@ -58,4 +62,30 @@ describe Kronic do
   should_format('Last Monday', date(:last_monday))
   should_format('This Monday', date(:next_monday))
   should_format('14 September 2008', Date.new(2008, 9, 14))
+
+  describe 'timezone support' do
+    before :all do
+      Time.extend(MethodVisibility)
+    end
+
+    it 'should be timezone aware if activesupport Time.zone is set' do
+      Time.zone = "US/Eastern"
+      Kronic.parse("today").should == date(:today) - 1
+      Kronic.format(date(:today) - 1).should == "Today"
+    end
+
+    it 'should fallback to Date.today if Time.zone is not available' do
+      Time.hide_class_method(:zone) do
+        Kronic.parse("today").should == date(:today)
+        Kronic.format(date(:today)).should == "Today"
+      end
+    end
+
+    it 'should fallback to Date.today if Time.zone is not set' do
+      Time.zone = nil
+      Kronic.parse("today").should == date(:today)
+      Kronic.format(date(:today)).should == "Today"
+    end
+  end
+
 end

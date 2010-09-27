@@ -6,6 +6,7 @@ PATH
 GEM
   remote: http://rubygems.org/
   specs:
+    activesupport (3.0.0)
     diff-lcs (1.1.2)
     rspec (2.0.0.beta.22)
       rspec-core (= 2.0.0.beta.22)
@@ -18,11 +19,14 @@ GEM
       rspec-core (= 2.0.0.beta.22)
       rspec-expectations (= 2.0.0.beta.22)
     timecop (0.3.5)
+    tzinfo (0.3.23)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  activesupport
   kronic!
   rspec (>= 2.0.0.beta.16)
   timecop
+  tzinfo
