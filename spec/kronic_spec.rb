@@ -62,6 +62,8 @@ describe Kronic do
   should_format('Last Monday', date(:last_monday))
   should_format('This Monday', date(:next_monday))
   should_format('14 September 2008', Date.new(2008, 9, 14))
+  
+  should_format('Today',        Time.utc(2010,"sep",18))
 
   describe 'timezone support' do
     before :all do
