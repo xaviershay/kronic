@@ -28,6 +28,7 @@ class Kronic
   # date - The Date to be converted
   # opts - The Hash options used to customize formatting
   #        :today - The reference point for calculations (default: Date.today)
+  #        :format - A strftime override (default: "%e %B %Y")
   #
   # Returns a relative string ("Today", "This Monday") if available, otherwise
   # the full representation of the date ("19 September 2010").
@@ -38,7 +39,7 @@ class Kronic
       when 0        then "Today"
       when -1       then "Yesterday"
       when (-7..-2) then "Last " + date.strftime("%A")
-      else              date.strftime("%e %B %Y").strip
+      else              date.strftime(opts[:format] || "%e %B %Y").strip
     end
   end
 
