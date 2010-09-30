@@ -18,7 +18,8 @@ class Kronic
 
     parse_nearby_days(string, now) ||
       parse_last_or_this_day(string, now) ||
-      parse_exact_date(string, now)
+      parse_exact_date(string, now) ||
+      parse_iso_8601_date(string)
   end
 
   # Public: Converts a date to a human readable string. If Time.zone is
@@ -47,6 +48,7 @@ class Kronic
 
     NUMBER              = /^[0-9]+$/
     NUMBER_WITH_ORDINAL = /^[0-9]+(st|nd|rd|th)?$/
+    ISO_8601_DATE       = /^([0-9]{4})-?(1[0-2]|0?[1-9])-?(3[0-1]|[1-2][0-9]|0?[1-9])$/
 
     def today
       if Time.respond_to?(:zone) && Time.zone
@@ -117,6 +119,16 @@ class Kronic
       result = Date.new(year, month, day)
       result = result << 12 if result > today && !raw_year
       result
+    end
+
+    # Parses "2010-09-04", "2010-9-4"
+    #
+    # NOTE: this is not strictly the ISO 8601 date format as it allows months
+    # and days without the zero prefix. e.g. 2010-9-4
+    def parse_iso_8601_date(string)
+      if string =~ ISO_8601_DATE
+        Date.parse(string) rescue nil
+      end
     end
   end
 end
