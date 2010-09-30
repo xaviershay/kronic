@@ -32,6 +32,10 @@ describe Kronic do
     Timecop.freeze(Time.utc(d.year, d.month, d.day))
   end
 
+  after :each do
+    Timecop.return
+  end
+
   should_parse('Today',              date(:today))
   should_parse(:today,               date(:today))
   should_parse('today',              date(:today))
