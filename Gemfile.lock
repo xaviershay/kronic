@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    kronic (0.2.1)
+    kronic (0.3)
 
 GEM
   remote: http://rubygems.org/
