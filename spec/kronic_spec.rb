@@ -25,42 +25,42 @@ describe Kronic do
   end
   def date(key); self.class.date(key); end;
 
-  before :each do 
+  before :each do
     Time.zone = nil
     ENV['TZ'] = "Australia/Melbourne"
     d = date(:today)
     Timecop.freeze(Time.utc(d.year, d.month, d.day))
   end
 
-  should_parse('Today',       date(:today))
-  should_parse(:today,        date(:today))
-  should_parse('today',       date(:today))
-  should_parse('  Today',     date(:today))
-  should_parse('Yesterday',   date(:today) - 1)
-  should_parse('Tomorrow',    date(:today) + 1)
-  should_parse('Last Monday', date(:last_monday))
-  should_parse('This Monday', date(:next_monday))
-  should_parse('4 Sep',       date(:sep_4))
-  should_parse('4  Sep',      date(:sep_4))
-  should_parse('4 September', date(:sep_4))
-  should_parse('20 Sep',      date(:sep_20))
-  should_parse('28 Sep 2010', date(:sep_28))
-  should_parse('14 Sep 2008',       Date.new(2008, 9, 14))
-  should_parse('14th Sep 2008',     Date.new(2008, 9, 14))
-  should_parse('23rd Sep 2008',     Date.new(2008, 9, 23))
-  should_parse('September 14 2008', Date.new(2008, 9, 14))
-  should_parse('Sep 4th',     date(:sep_4))
-  should_parse('September 4', date(:sep_4))
-  should_parse('bogus',       nil)
-  should_parse('14',          nil)
-  should_parse('14 bogus in', nil)
-  should_parse('14 June oen', nil)
+  should_parse('Today',              date(:today))
+  should_parse(:today,               date(:today))
+  should_parse('today',              date(:today))
+  should_parse('  Today',            date(:today))
+  should_parse('Yesterday',          date(:today) - 1)
+  should_parse('Tomorrow',           date(:today) + 1)
+  should_parse('Last Monday',        date(:last_monday))
+  should_parse('This Monday',        date(:next_monday))
+  should_parse('4 Sep',              date(:sep_4))
+  should_parse('4  Sep',             date(:sep_4))
+  should_parse('4 September',        date(:sep_4))
+  should_parse('20 Sep',             date(:sep_20))
+  should_parse('28 Sep 2010',        date(:sep_28))
+  should_parse('14 Sep 2008',        Date.new(2008, 9, 14))
+  should_parse('14th Sep 2008',      Date.new(2008, 9, 14))
+  should_parse('23rd Sep 2008',      Date.new(2008, 9, 23))
+  should_parse('September 14 2008',  Date.new(2008, 9, 14))
+  should_parse('Sep 4th',            date(:sep_4))
+  should_parse('September 4',        date(:sep_4))
+  should_parse('bogus',              nil)
+  should_parse('14',                 nil)
+  should_parse('14 bogus in',        nil)
+  should_parse('14 June oen',        nil)
 
-  should_format('Today',       date(:today))
-  should_format('Yesterday',   date(:today) - 1)
-  should_format('Tomorrow',    date(:today) + 1)
-  should_format('Last Monday', date(:last_monday))
-  should_format('This Monday', date(:next_monday))
+  should_format('Today',             date(:today))
+  should_format('Yesterday',         date(:today) - 1)
+  should_format('Tomorrow',          date(:today) + 1)
+  should_format('Last Monday',       date(:last_monday))
+  should_format('This Monday',       date(:next_monday))
   should_format('14 September 2008', Date.new(2008, 9, 14))
 
   describe 'timezone support' do
@@ -87,5 +87,4 @@ describe Kronic do
       Kronic.format(date(:today)).should == "Today"
     end
   end
-
 end

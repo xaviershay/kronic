@@ -1,14 +1,14 @@
 require 'date'
 
 class Kronic
-  # Public: Converts a human readable day (Today, yesterday) to a Date.
+  # Public: Converts a human readable day (today, yesterday) to a Date.
   # If Time.zone is available and set (added by active_support and rails),
   # Time.zone.today will be used as a reference point, otherwise Date.today
   # will be used.
   #
   # string - The String to convert to a Date. #to_s is called on the parameter.
   #          Supported formats are: Today, yesterday, tomorrow, last thursday,
-  #          this thursday, 14 Sep, Sep 14, 14 June 2010. Parsing is 
+  #          this thursday, 14 Sep, Sep 14, 14 June 2010. Parsing is
   #          case-insensitive.
   #
   # Returns the Date, or nil if the input could not be parsed.
@@ -38,7 +38,7 @@ class Kronic
       when 0        then "Today"
       when -1       then "Yesterday"
       when (-7..-2) then "Last " + date.strftime("%A")
-      else              date.strftime("%e %B %Y").strip
+      else               date.strftime("%e %B %Y").strip
     end
   end
 
@@ -79,10 +79,10 @@ class Kronic
       tokens = string.split(/\s+/)
 
       if %w(last this).include?(tokens[0])
-        days = (1..7).map {|x| 
+        days = (1..7).map {|x|
           today + (tokens[0] == 'last' ? -x : x)
-        }.inject({}) {|a, x| 
-          a.update(x.strftime("%A").downcase => x) 
+        }.inject({}) {|a, x|
+          a.update(x.strftime("%A").downcase => x)
         }
 
         days[tokens[1]]
@@ -101,7 +101,7 @@ class Kronic
         end
       end
     end
-    
+
     # Parses day, month and year parts
     def parse_exact_date_parts(raw_day, raw_month, raw_year, today)
       day   = raw_day.to_i
