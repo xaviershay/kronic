@@ -8,7 +8,7 @@ Chronic and Tickle both parse a *heap* of formats. That's not useful to me when 
 
 In addition, Kronic can take a date and give you a human readable form, neither of which Chronic nor Tickle does.
 
-Oh yeah, Kronic is about 100 lines of code.
+Oh yeah, Kronic is about 150 lines of code with no dependencies.
 
 == Usage
 
@@ -18,8 +18,14 @@ Oh yeah, Kronic is about 100 lines of code.
   Kronic.parse("Today")     # => Date.today
   Kronic.format(Date.today) # => "Today"
 
-Supported formats: Today, yesterday, tomorrow, last thursday, this thursday, 14 Sep, 14 June 2010. Any dates without a year are assumed to be in the past.
+Supported formats: Today, yesterday, tomorrow, last thursday, this thursday, 14 Sep, 14 June 2010. Any dates without a year are assumed to be in the past (that's what my app needs, so that's what it does).
+
+== Compatibility
+
+Kronic does not require ActiveSupport, but if it is present Kronic will use the current time zone. In short, everything should work as you would expect.
+
+Kronic is tested on 1.8.7, 1.9.2, Rubinius, and JRuby.
 
 == Future
 
-Kronic will be totally timezone aware. It may or may not be now, I haven't specced it. Maybe a flag to toggle interpretation of dates without years.
+Current release is a release candidate for 1.0, when the API will be declared stable. i18n work has been started in a branch, and also in yolk's fork. I'm not using this personally. Maybe also a flag to toggle the interpretation of dates without years would be nice. Neither of those things will be in 1.0 I don't reckon.
