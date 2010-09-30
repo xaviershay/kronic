@@ -1,6 +1,7 @@
 require 'rspec'
 require 'timecop'
-require 'active_support/core_ext'
+require 'active_support/core_ext/integer/time'
+require 'active_support/core_ext/time/zones'
 
 $LOAD_PATH.unshift(File.dirname(__FILE__) + '/../lib')
 require 'kronic'

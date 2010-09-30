@@ -50,9 +50,15 @@ class Kronic
     NUMBER_WITH_ORDINAL = /^[0-9]+(st|nd|rd|th)?$/
     ISO_8601_DATE       = /^([0-9]{4})-?(1[0-2]|0?[1-9])-?(3[0-1]|[1-2][0-9]|0?[1-9])$/
 
+    # Ruby 1.8 does not provide a to_date method on Time. This methods works
+    # on all rubies.
+    def to_date(time)
+      Date.new(time.year, time.month, time.day)
+    end
+
     def today
       if Time.respond_to?(:zone) && Time.zone
-        Time.zone.today
+        to_date(Time.zone.now)
       else
         Date.today
       end
