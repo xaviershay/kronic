@@ -50,6 +50,10 @@ class Kronic
     NUMBER_WITH_ORDINAL = /^[0-9]+(st|nd|rd|th)?$/
     ISO_8601_DATE       = /^([0-9]{4})-?(1[0-2]|0?[1-9])-?(3[0-1]|[1-2][0-9]|0?[1-9])$/
 
+    MONTH_NAMES = Date::MONTHNAMES.zip(Date::ABBR_MONTHNAMES).flatten.compact.map {|x| 
+                    x.downcase 
+                  }
+
     # Ruby 1.8 does not provide a to_date method on Time. This methods works
     # on all rubies.
     def to_date(time)
@@ -69,10 +73,8 @@ class Kronic
     #   month_from_name("january") # => 1
     #   month_from_name("jan")     # => 1
     def month_from_name(month)
-      f = lambda {|months| months.compact.map {|x| x.downcase }.index(month) }
-
-      month = f[Date::MONTHNAMES] || f[Date::ABBR_MONTHNAMES]
-      month ? month + 1 : nil
+      month = MONTH_NAMES.index(month)
+      month ? month / 2 + 1 : nil
     end
 
     # Parse "Today", "Tomorrow" and "Yesterday"
