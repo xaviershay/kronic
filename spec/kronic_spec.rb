@@ -5,6 +5,13 @@ describe Kronic do
     it "should parse '#{string}'" do
       Kronic.parse(string).should == date
     end
+
+    if js_supported?
+      it "should parse '#{string}' (JS)" do
+        x = @js.evaluate(%{Kronic.parse("#{string}")})
+        Date.new(x.year, x.month, x.day).should == date
+      end
+    end
   end
 
   def self.should_format(string, date)
@@ -24,6 +31,18 @@ describe Kronic do
     }.fetch(key)
   end
   def date(key); self.class.date(key); end;
+
+  if js_supported?
+    before :all do
+      x = date(:today)
+      @js = Johnson::Runtime.new
+      @js['alert'] = lambda {|x| puts x.inspect }
+      @js.evaluate(File.open(File.dirname(__FILE__) + '/../lib/strftime.js').read)
+      puts @js.evaluate(%{(new Date()).strftime("%A")})
+      @js.evaluate(File.open(File.dirname(__FILE__) + '/../lib/kronic.js').read)
+      @js.evaluate(%(Kronic.today = function() { return new Date(Date.UTC(#{x.year}, #{x.month - 1}, #{x.day}))}))
+    end
+  end
 
   before :each do
     Time.zone = nil

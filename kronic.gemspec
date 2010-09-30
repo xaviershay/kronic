@@ -15,5 +15,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'timecop'
   s.add_development_dependency 'activesupport'
   s.add_development_dependency 'tzinfo'
+  s.add_development_dependency 'johnson'
 end
 
