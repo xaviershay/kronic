@@ -9,7 +9,9 @@ describe Kronic do
     if js_supported?
       it "should parse '#{string}' (JS)" do
         x = @js.evaluate(%{Kronic.parse("#{string}")})
-        Date.new(x.year, x.month, x.day).should == date
+        x.is_a?(DateTime) ?
+          Date.new(x.year, x.month, x.day).should == date :
+          x.should == date
       end
     end
   end
