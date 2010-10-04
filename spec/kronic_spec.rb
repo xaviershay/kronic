@@ -7,11 +7,20 @@ describe Kronic do
     end
 
     if js_supported?
+      # Johnson strips out the time zone data, we need to put it back in
+      def utc_to_local(date_time)
+        date_time.new_offset(Time.now.utc_offset / 60 / 60 / 24.0)
+      end
+
       it "should parse '#{string}' (JS)" do
         x = @js.evaluate(%{Kronic.parse("#{string}")})
-        x.is_a?(DateTime) ?
-          Date.new(x.year, x.month, x.day).should == date :
+
+        if x.is_a?(DateTime)
+          x = utc_to_local(x)
+          Date.new(x.year, x.month, x.day).should == date
+        else
           x.should == date
+        end
       end
     end
   end
@@ -40,7 +49,6 @@ describe Kronic do
       @js = Johnson::Runtime.new
       @js['alert'] = lambda {|x| puts x.inspect }
       @js.evaluate(File.open(File.dirname(__FILE__) + '/../lib/strftime.js').read)
-      puts @js.evaluate(%{(new Date()).strftime("%A")})
       @js.evaluate(File.open(File.dirname(__FILE__) + '/../lib/kronic.js').read)
       @js.evaluate(%(Kronic.today = function() { return new Date(Date.UTC(#{x.year}, #{x.month - 1}, #{x.day}))}))
     end
