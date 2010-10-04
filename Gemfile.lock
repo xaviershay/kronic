@@ -8,7 +8,6 @@ GEM
   specs:
     activesupport (3.0.0)
     diff-lcs (1.1.2)
-    johnson (1.2.0)
     rspec (2.0.0.beta.22)
       rspec-core (= 2.0.0.beta.22)
       rspec-expectations (= 2.0.0.beta.22)
@@ -28,7 +27,6 @@ PLATFORMS
 
 DEPENDENCIES
   activesupport
-  johnson
   kronic!
   rspec (>= 2.0.0.beta.16)
   timecop
