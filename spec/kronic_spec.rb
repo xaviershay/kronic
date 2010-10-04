@@ -13,7 +13,7 @@ describe Kronic do
       end
 
       it "should parse '#{string}' (JS)" do
-        x = @js.evaluate(%{Kronic.parse("#{string}")})
+        x = @js.evaluate("Kronic").parse(string)
 
         if x.is_a?(DateTime)
           x = utc_to_local(x)
@@ -28,6 +28,12 @@ describe Kronic do
   def self.should_format(string, date)
     it "should format '#{string}'" do
       Kronic.format(date).should == string
+    end
+
+    if js_supported?
+      it "should format '#{string}' (JS)" do
+        @js.evaluate("Kronic").format(date).should == string
+      end
     end
   end
 
