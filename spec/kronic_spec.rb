@@ -53,6 +53,7 @@ describe Kronic do
   should_parse('14th Sep 2008',      Date.new(2008, 9, 14))
   should_parse('23rd Sep 2008',      Date.new(2008, 9, 23))
   should_parse('September 14 2008',  Date.new(2008, 9, 14))
+  should_parse('Sep 14, 2008',       Date.new(2008, 9, 14))
   should_parse('Sep 4th',            date(:sep_4))
   should_parse('September 4',        date(:sep_4))
   should_parse('2008-09-04',         Date.new(2008, 9, 4))
