@@ -47,7 +47,7 @@ class Kronic
     private
 
     NUMBER              = /^[0-9]+$/
-    NUMBER_WITH_ORDINAL = /^[0-9]+(st|nd|rd|th)?$/
+    NUMBER_WITH_ORDINAL = /^[0-9]+(st|nd|rd|th)?,?$/
     ISO_8601_DATE       = /^([0-9]{4})-?(1[0-2]|0?[1-9])-?(3[0-1]|[1-2][0-9]|0?[1-9])$/
 
     MONTH_NAMES = Date::MONTHNAMES.zip(Date::ABBR_MONTHNAMES).flatten.compact.map {|x| 
