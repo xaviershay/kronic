@@ -46,8 +46,9 @@ class Kronic
   class << self
     private
 
+    DELIMITER           = /[,\s]+/
     NUMBER              = /^[0-9]+$/
-    NUMBER_WITH_ORDINAL = /^[0-9]+(st|nd|rd|th)?,?$/
+    NUMBER_WITH_ORDINAL = /^[0-9]+(st|nd|rd|th)?$/
     ISO_8601_DATE       = /^([0-9]{4})-?(1[0-2]|0?[1-9])-?(3[0-1]|[1-2][0-9]|0?[1-9])$/
 
     MONTH_NAMES = Date::MONTHNAMES.zip(Date::ABBR_MONTHNAMES).flatten.compact.map {|x| 
@@ -86,7 +87,7 @@ class Kronic
 
     # Parse "Last Monday", "This Monday"
     def parse_last_or_this_day(string, today)
-      tokens = string.split(/\s+/)
+      tokens = string.split(DELIMITER)
 
       if %w(last this).include?(tokens[0])
         days = (1..7).map {|x|
@@ -101,7 +102,7 @@ class Kronic
 
     # Parse "14 Sep", "14 September", "14 September 2010", "Sept 14 2010"
     def parse_exact_date(string, today)
-      tokens = string.split(/\s+/)
+      tokens = string.split(DELIMITER)
 
       if tokens.length >= 2
         if    tokens[0] =~ NUMBER_WITH_ORDINAL
