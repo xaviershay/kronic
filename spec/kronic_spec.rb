@@ -19,8 +19,8 @@ describe Kronic do
     before :all do
       @js = Johnson::Runtime.new
       @js['alert'] = proc {|s| puts s.inspect }
-      @js.evaluate(File.open(File.dirname(__FILE__) + '/../lib/strftime.js').read)
-      @js.evaluate(File.open(File.dirname(__FILE__) + '/../lib/kronic.js').read)
+      @js.evaluate(File.open(File.dirname(__FILE__) + '/../lib/js/strftime.js').read)
+      @js.evaluate(File.open(File.dirname(__FILE__) + '/../lib/js/kronic.js').read)
       @js.evaluate("Kronic")['today'] = proc { date(:today) }
     end
   end
