@@ -20,7 +20,7 @@ describe Kronic do
       @js = Johnson::Runtime.new
       @js.evaluate(File.open(File.dirname(__FILE__) + '/../lib/strftime.js').read)
       @js.evaluate(File.open(File.dirname(__FILE__) + '/../lib/kronic.js').read)
-      @js.evaluate("Kronic")['today'] = lambda { date.today }
+      @js.evaluate("Kronic")['today'] = proc { date(:today) }
     end
   end
 
