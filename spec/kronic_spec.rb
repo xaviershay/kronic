@@ -17,11 +17,11 @@ describe Kronic do
 
   if js_supported?
     before :all do
-      @js = Johnson::Runtime.new
+      @js = V8::Context.new
       @js['alert'] = proc {|s| puts s.inspect }
-      @js.evaluate(File.open(File.dirname(__FILE__) + '/../lib/js/strftime.js').read)
-      @js.evaluate(File.open(File.dirname(__FILE__) + '/../lib/js/kronic.js').read)
-      @js.evaluate("Kronic")['today'] = proc { date(:today) }
+      @js.eval(File.open(File.dirname(__FILE__) + '/../lib/js/strftime.js').read)
+      @js.eval(File.open(File.dirname(__FILE__) + '/../lib/js/kronic.js').read)
+      @js.eval("Kronic")['today'] = proc { date(:today).to_time }
     end
   end
 

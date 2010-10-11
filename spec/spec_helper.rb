@@ -2,10 +2,11 @@ require 'rspec'
 require 'timecop'
 require 'active_support/core_ext/integer/time'
 require 'active_support/core_ext/time/zones'
+require 'active_support/core_ext/time/calculations'
 require 'active_support/core_ext/date/conversions' # For nicer spec fail output
 
 $js_loaded = begin
-  require 'johnson'
+  require 'v8'
   true
 rescue LoadError => e
   # Can't run JS specs
@@ -41,12 +42,12 @@ module KronicMatchers
       it "should parse '#{string}' (JS)" do
         # Johnson strips out the time zone data, we need to put it back in
         def utc_to_local(date_time)
-          date_time.new_offset(Time.now.utc_offset / 60 / 60 / 24.0)
+          date_time.to_date
+          #date_time.new_offset(Time.now.utc_offset / 60 / 60 / 24.0)
         end
 
         x = @js.evaluate("Kronic").parse(string)
-
-        if x.is_a?(DateTime)
+        if x.is_a?(Time)
           x = utc_to_local(x)
           Date.new(x.year, x.month, x.day).should == date
         else
@@ -63,7 +64,7 @@ module KronicMatchers
 
     if js_supported?
       it "should format '#{string}' (JS)" do
-        @js.evaluate("Kronic").format(date).should == string
+        @js.evaluate("Kronic").format(date.to_time).should == string
       end
     end
   end
