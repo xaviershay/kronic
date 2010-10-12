@@ -2,6 +2,6 @@ source :rubygems
 
 gemspec
 
-platforms(:mri) do
+platforms(:ruby) do
   gem 'therubyracer', '>= 0.8.0.pre2'
 end
