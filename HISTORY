@@ -1,3 +1,7 @@
+0.4.1
+  * Fixed parsing of "January 1999" (returns nil, rather than raising an exception)
+  * Support optional commas in delimeters: "Sep 14, 2010"
+
 0.4.0
   * Support ISO 8601 dates ("2010-09-30")
   * Kronic.format supports Time and DateTime as a parameter
