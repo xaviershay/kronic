@@ -63,6 +63,7 @@ describe Kronic do
   should_parse('14',                 nil)
   should_parse('14 bogus in',        nil)
   should_parse('14 June oen',        nil)
+  should_parse('January 1999',       nil)
 
   should_format('Today',             date(:today))
   should_format('Yesterday',         date(:today) - 1)

@@ -125,9 +125,13 @@ class Kronic
 
       return nil unless day && month && year
 
-      result = Date.new(year, month, day)
-      result = result << 12 if result > today && !raw_year
-      result
+      begin
+        result = Date.new(year, month, day)
+        result = result << 12 if result > today && !raw_year
+        result
+      rescue ArgumentError
+        nil
+      end
     end
 
     # Parses "2010-09-04", "2010-9-4"
