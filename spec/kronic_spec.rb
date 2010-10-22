@@ -26,8 +26,9 @@ describe Kronic do
 
       @js = V8::Context.new
       @js['alert'] = proc {|s| puts s.inspect }
-      @js.eval(File.open(File.dirname(__FILE__) + '/../lib/js/strftime.js').read)
-      @js.eval(File.open(File.dirname(__FILE__) + '/../lib/js/kronic.js').read)
+      %w(strftime kronic).each do |file|
+        @js.eval(File.open(File.dirname(__FILE__) + "/../lib/js/#{file}.js").read)
+      end
       @js.eval("Kronic")['today'] = proc { date(:today).to_time }
     end
   end
