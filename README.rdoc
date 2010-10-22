@@ -51,7 +51,7 @@ Kronic is tested on 1.8.7, 1.9.2, Rubinius, and JRuby.
   rake
   open spec/kronic_spec.rb
 
-There are comments to help you along but it is pretty basic code, so everything should make sense pretty quickly. The javascript code is a direct translation of the ruby code, and as such it is undocumented - just refer back to the ruby code. +strftime.js+ is an external library bundled here for convenience.
+There are comments to help you along but it is pretty basic code, so everything should make sense pretty quickly. The javascript code is a direct translation of the ruby code, and as such it is undocumented - just refer back to the ruby code. strftime.js is an external library bundled here for convenience. Do not change it.
 
 The exact same set of specs are run again the ruby and javascript libraries, so they should be 100% compatible.
 
