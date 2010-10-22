@@ -33,22 +33,17 @@ module MethodVisibility
 end
 
 module KronicMatchers
-  def should_parse(string, date)
+  def it_should_parse(string, date)
     it "should parse '#{string}'" do
       Kronic.parse(string).should == date
     end
 
     if js_supported?
       it "should parse '#{string}' (JS)" do
-        # Johnson strips out the time zone data, we need to put it back in
-        def utc_to_local(date_time)
-          date_time.to_date
-          #date_time.new_offset(Time.now.utc_offset / 60 / 60 / 24.0)
-        end
-
         x = @js.evaluate("Kronic").parse(string)
+
         if x.is_a?(Time)
-          x = utc_to_local(x)
+          x = x.to_date
           Date.new(x.year, x.month, x.day).should == date
         else
           x.should == date
@@ -57,7 +52,7 @@ module KronicMatchers
     end
   end
 
-  def should_format(string, date)
+  def it_should_format(string, date)
     it "should format '#{string}'" do
       Kronic.format(date).should == string
     end

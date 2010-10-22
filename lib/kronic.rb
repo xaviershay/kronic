@@ -23,8 +23,9 @@ class Kronic
   end
 
   # Public: Converts a date to a human readable string. If Time.zone is
-  # available and set (added by active_support and rails), Time.zone.today
-  # will be used as a reference point, otherwise Date.today will be used.
+  # available and set (it is added by active_support and rails by default),
+  # Time.zone.today will be used as a reference point, otherwise Date.today
+  # will be used.
   #
   # date - The Date to be converted
   # opts - The Hash options used to customize formatting
