@@ -16,8 +16,12 @@ Supported formats: Today, yesterday, tomorrow, last thursday, this thursday, 14 
 
 === Javascript
 
+Install by grabbing the latest versions direct from github:
+
   curl http://github.com/xaviershay/kronic/raw/js/lib/js/strftime.js > public/javascripts/strftime.js
   curl http://github.com/xaviershay/kronic/raw/js/lib/js/kronic.js   > public/javascripts/kronic.js
+
+Use with the following script:
 
   <script src="/javascripts/strftime.js" type="text/javascript"></script> 
   <script src="/javascripts/kronic.js"   type="text/javascript"></script>
@@ -25,6 +29,14 @@ Supported formats: Today, yesterday, tomorrow, last thursday, this thursday, 14 
     Kronic.parse("Today");
     Kronic.format(new Date());
   </script>
+
+== Why not Chronic or Tickle
+
+Chronic and Tickle both parse a *heap* of formats. That's not useful to me when they fail on cases I want (14 Sep), and also not useful because I don't need times or spans. I just want to replace my calendar picker.
+
+In addition, Kronic can take a date and give you a human readable form, neither of which Chronic nor Tickle does.
+
+Oh yeah, Kronic is about 150 lines of code with no dependencies.
 
 == Compatibility
 
@@ -39,19 +51,11 @@ Kronic is tested on 1.8.7, 1.9.2, Rubinius, and JRuby.
   rake
   open spec/kronic_spec.rb
 
-There are comments to help you along but it is pretty basic code, so everything should make sense pretty quickly. The javascript code is a direct translation of the ruby code, and as such it is undocumented - just refer back to the ruby code. +lib/js/strftime.js+ is an external library bundled here for convenience.
+There are comments to help you along but it is pretty basic code, so everything should make sense pretty quickly. The javascript code is a direct translation of the ruby code, and as such it is undocumented - just refer back to the ruby code. +strftime.js+ is an external library bundled here for convenience.
 
 The exact same set of specs are run again the ruby and javascript libraries, so they should be 100% compatible.
 
 Patches welcome! Fork and send a pull request. Please follow coding conventions already in use. If +jsl+ (JSLint) is in your path, rake will run it over the javascript implementation. There are currently no warnings, please keep it that way.
-  
-== Why not Chronic or Tickle
-
-Chronic and Tickle both parse a *heap* of formats. That's not useful to me when they fail on cases I want (14 Sep), and also not useful because I don't need times or spans. I just want to replace my calendar picker.
-
-In addition, Kronic can take a date and give you a human readable form, neither of which Chronic nor Tickle does.
-
-Oh yeah, Kronic is about 150 lines of code with no dependencies.
 
 == Future
 
