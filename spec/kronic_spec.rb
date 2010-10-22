@@ -15,8 +15,15 @@ describe Kronic do
   end
   def date(key); self.class.date(key); end;
 
+  def reset_timezone
+    Time.zone = nil
+    ENV['TZ'] = "Australia/Melbourne"
+  end
+
   if js_supported?
     before :all do
+      reset_timezone
+
       @js = V8::Context.new
       @js['alert'] = proc {|s| puts s.inspect }
       @js.eval(File.open(File.dirname(__FILE__) + '/../lib/js/strftime.js').read)
@@ -26,8 +33,7 @@ describe Kronic do
   end
 
   before :each do
-    Time.zone = nil
-    ENV['TZ'] = "Australia/Melbourne"
+    reset_timezone
     d = date(:today)
     Timecop.freeze(Time.utc(d.year, d.month, d.day))
   end
