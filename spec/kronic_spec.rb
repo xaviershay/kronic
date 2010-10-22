@@ -4,7 +4,7 @@ describe Kronic do
   extend KronicMatchers
 
   if js_supported?
-    # Currently only MRI rubies can run the specs against the JS implementation
+    # JRuby cannot currently run the specs against the JS implementation
     before :all do
       reset_timezone
 
