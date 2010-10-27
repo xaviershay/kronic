@@ -23,8 +23,9 @@ class Kronic
   end
 
   # Public: Converts a date to a human readable string. If Time.zone is
-  # available and set (added by active_support and rails), Time.zone.today
-  # will be used as a reference point, otherwise Date.today will be used.
+  # available and set (it is added by active_support and rails by default),
+  # Time.zone.today will be used as a reference point, otherwise Date.today
+  # will be used.
   #
   # date - The Date to be converted
   # opts - The Hash options used to customize formatting
@@ -48,7 +49,7 @@ class Kronic
 
     DELIMITER           = /[,\s]+/
     NUMBER              = /^[0-9]+$/
-    NUMBER_WITH_ORDINAL = /^[0-9]+(st|nd|rd|th)?$/
+    NUMBER_WITH_ORDINAL = /^([0-9]+)(st|nd|rd|th)?$/
     ISO_8601_DATE       = /^([0-9]{4})-?(1[0-2]|0?[1-9])-?(3[0-1]|[1-2][0-9]|0?[1-9])$/
 
     MONTH_NAMES = Date::MONTHNAMES.zip(Date::ABBR_MONTHNAMES).flatten.compact.map {|x| 

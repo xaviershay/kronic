@@ -18,6 +18,7 @@ GEM
     rspec-mocks (2.0.0.beta.22)
       rspec-core (= 2.0.0.beta.22)
       rspec-expectations (= 2.0.0.beta.22)
+    therubyracer (0.8.0.pre2)
     timecop (0.3.5)
     tzinfo (0.3.23)
 
@@ -29,5 +30,6 @@ DEPENDENCIES
   activesupport
   kronic!
   rspec (>= 2.0.0.beta.16)
+  therubyracer (>= 0.8.0.pre2)
   timecop
   tzinfo
