@@ -18,8 +18,8 @@ Supported formats: Today, yesterday, tomorrow, last thursday, this thursday, 14 
 
 Install by grabbing the latest versions direct from github:
 
-  curl http://github.com/xaviershay/kronic/raw/js/lib/js/strftime.js > public/javascripts/strftime.js
-  curl http://github.com/xaviershay/kronic/raw/js/lib/js/kronic.js   > public/javascripts/kronic.js
+  curl http://github.com/xaviershay/kronic/raw/master/lib/js/strftime.js > public/javascripts/strftime.js
+  curl http://github.com/xaviershay/kronic/raw/master/lib/js/kronic.js   > public/javascripts/kronic.js
 
 Use with the following script:
 
@@ -36,13 +36,13 @@ Chronic and Tickle both parse a *heap* of formats. That's not useful to me when 
 
 In addition, Kronic can take a date and give you a human readable form, neither of which Chronic nor Tickle does.
 
-Oh yeah, Kronic is about 150 lines of code with no dependencies.
+Oh yeah, Kronic is about 150 lines of ruby code with no dependencies, and provides a javascript implementation.
 
 == Compatibility
 
 Kronic does not require ActiveSupport, but if it is present Kronic will use the current time zone. In short, everything should work as you would expect.
 
-Kronic is tested on 1.8.7, 1.9.2, Rubinius, and JRuby.
+Kronic is tested on 1.8.7, 1.9.2, Rubinius 1.1, and JRuby 1.5.1.
 
 == Developing
 
@@ -57,6 +57,6 @@ The exact same set of specs are run again the ruby and javascript libraries, so 
 
 Patches welcome! Fork and send a pull request. Please follow coding conventions already in use. If +jsl+ (JSLint) is in your path, rake will run it over the javascript implementation. There are currently no warnings, please keep it that way.
 
-== Future
+== Status
 
-Current release is a release candidate for 1.0, when the API will be declared stable. i18n work has been started in a branch, and also in yolk's fork. I'm not using this personally. Maybe also a flag to toggle the interpretation of dates without years would be nice. Neither of those things will be in 1.0 I don't reckon.
+Current release is stable, and being used in production sites. Some I18n work is in yolk's fork, but it is lagging behind the current release. I am not using this personally. Maybe also a flag to toggle the interpretation of dates without years would be nice, but not something I need.

@@ -1,23 +1,27 @@
-0.4.1
-  * Fixed parsing of "January 1999" (returns nil, rather than raising an exception)
-  * Support optional commas in delimeters: "Sep 14, 2010"
+1.0.0 - 27 October 2010
+  * Added javascript implementation
+  * Committed to backwards compatibility for current API until v2
 
-0.4.0
+0.4.1 - 22 October 2010
+  * Fixed parsing of "January 1999" (returns nil, rather than raising an exception)
+  * Support optional commas in delimiters: "Sep 14, 2010"
+
+0.4.0 - 30 September 2010
   * Support ISO 8601 dates ("2010-09-30")
   * Kronic.format supports Time and DateTime as a parameter
   * Ironclad guarantee it works on 1.8.7, 1.9.2, Rubinius, and JRuby
 
-0.3.0
+0.3.0 - 27 September 2010
   * Support month before day ("June 14")
   * Support day ordinals ("14th June")
   * Use Time.zone if available
   * Fix Kronic.format for ruby 1.8
 
-0.2.1
+0.2.1 - 20 September 2010
   * Removed dependency on active_support, no external dependencies!
   * Dates in the future with a year specified are parsed correctly
 
-0.2.0
+0.2.0 - 20 September 2010
   * Support "tomorrow"
   * Support "this monday"
 
