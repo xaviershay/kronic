@@ -1,3 +1,6 @@
+1.1.0 - 28 October 2010
+  * Remove dependency on strftime.js
+
 1.0.0 - 27 October 2010
   * Added javascript implementation
   * Committed to backwards compatibility for current API until v2
