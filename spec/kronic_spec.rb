@@ -66,6 +66,7 @@ describe Kronic do
   it_should_parse('September 4',        date(:sep_4))
   it_should_parse('2008-09-04',         Date.new(2008, 9, 4))
   it_should_parse('2008-9-4',           Date.new(2008, 9, 4))
+  it_should_parse('1 Jan 2010',         Date.new(2010, 1, 1))
   it_should_parse('bogus',              nil)
   it_should_parse('14',                 nil)
   it_should_parse('14 bogus in',        nil)
