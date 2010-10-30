@@ -1,3 +1,7 @@
+1.1.1 - 30 October 2010
+  * Fix javascript parsing of dates in January
+  * Fix javascript parsing of overflowed dates such as "366 Jan 2010"
+
 1.1.0 - 28 October 2010
   * Remove dependency on strftime.js
 
