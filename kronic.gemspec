@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
                    %w(Gemfile Gemfile.lock README.rdoc HISTORY Rakefile)
   s.require_path = 'lib'
 
-  s.add_development_dependency 'rspec', '>= 2.0.0.beta.16'
+  s.add_development_dependency 'rspec', '~> 2.0.1'
   s.add_development_dependency 'timecop'
   s.add_development_dependency 'activesupport'
   s.add_development_dependency 'tzinfo'

@@ -8,16 +8,16 @@ GEM
   specs:
     activesupport (3.0.0)
     diff-lcs (1.1.2)
-    rspec (2.0.0.beta.22)
-      rspec-core (= 2.0.0.beta.22)
-      rspec-expectations (= 2.0.0.beta.22)
-      rspec-mocks (= 2.0.0.beta.22)
-    rspec-core (2.0.0.beta.22)
-    rspec-expectations (2.0.0.beta.22)
+    rspec (2.0.1)
+      rspec-core (~> 2.0.1)
+      rspec-expectations (~> 2.0.1)
+      rspec-mocks (~> 2.0.1)
+    rspec-core (2.0.1)
+    rspec-expectations (2.0.1)
       diff-lcs (>= 1.1.2)
-    rspec-mocks (2.0.0.beta.22)
-      rspec-core (= 2.0.0.beta.22)
-      rspec-expectations (= 2.0.0.beta.22)
+    rspec-mocks (2.0.1)
+      rspec-core (~> 2.0.1)
+      rspec-expectations (~> 2.0.1)
     therubyracer (0.8.0.pre2)
     timecop (0.3.5)
     tzinfo (0.3.23)
@@ -29,7 +29,7 @@ PLATFORMS
 DEPENDENCIES
   activesupport
   kronic!
-  rspec (>= 2.0.0.beta.16)
+  rspec (~> 2.0.1)
   therubyracer (>= 0.8.0.pre2)
   timecop
   tzinfo
