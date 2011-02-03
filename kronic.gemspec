@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name     = 'kronic'
-  s.version  = '1.1.1'
+  s.version  = '1.1.2'
   s.summary  = 'A dirt simple library for parsing and formatting human readable dates'
   s.platform = Gem::Platform::RUBY
   s.authors  = ["Xavier Shay"]

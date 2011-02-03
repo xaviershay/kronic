@@ -1,3 +1,6 @@
+1.1.1 - 4 February 2011
+  * rubygems-test compat
+
 1.1.1 - 30 October 2010
   * Fix javascript parsing of dates in January
   * Fix javascript parsing of overflowed dates such as "366 Jan 2010"
