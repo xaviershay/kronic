@@ -9,3 +9,5 @@ task :spec do
   commands << "jsl -nologo -process lib/js/kronic.js" if `which jsl`.length > 0
   exec commands.join(" && ")
 end
+
+task :test => :spec
