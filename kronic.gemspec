@@ -13,7 +13,6 @@ Gem::Specification.new do |s|
                    Dir.glob("{spec,lib}/**/*.js") +
                    %w(
                      Gemfile 
-                     Gemfile.lock 
                      README.rdoc 
                      HISTORY 
                      Rakefile 
@@ -21,9 +20,12 @@ Gem::Specification.new do |s|
                      kronic.gemspec
                    )
 
+  s.add_development_dependency 'rake'
   s.add_development_dependency 'rspec', '~> 2.0.1'
   s.add_development_dependency 'timecop'
   s.add_development_dependency 'activesupport'
+  s.add_development_dependency 'i18n'
   s.add_development_dependency 'tzinfo'
+  s.add_development_dependency 'bundler'
 end
 
