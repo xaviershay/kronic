@@ -90,7 +90,7 @@ class Kronic
     def parse_last_or_this_day(string, today)
       tokens = string.split(DELIMITER)
 
-      if %w(last this).include?(tokens[0])
+      if %w(last next this).include?(tokens[0])
         days = (1..7).map {|x|
           today + (tokens[0] == 'last' ? -x : x)
         }.inject({}) {|a, x|
