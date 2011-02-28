@@ -52,8 +52,8 @@ class Kronic
     NUMBER_WITH_ORDINAL = /^([0-9]+)(st|nd|rd|th)?$/
     ISO_8601_DATE       = /^([0-9]{4})-?(1[0-2]|0?[1-9])-?(3[0-1]|[1-2][0-9]|0?[1-9])$/
 
-    MONTH_NAMES = Date::MONTHNAMES.zip(Date::ABBR_MONTHNAMES).flatten.compact.map {|x| 
-                    x.downcase 
+    MONTH_NAMES = Date::MONTHNAMES.zip(Date::ABBR_MONTHNAMES).flatten.compact.map {|x|
+                    x.downcase
                   }
 
     # Ruby 1.8 does not provide a to_date method on Time. This methods works
@@ -95,6 +95,7 @@ class Kronic
           today + (tokens[0] == 'last' ? -x : x)
         }.inject({}) {|a, x|
           a.update(x.strftime("%A").downcase => x)
+          a.update(x.strftime("%a").downcase => x)
         }
 
         days[tokens[1]]
