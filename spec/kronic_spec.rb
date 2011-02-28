@@ -53,6 +53,7 @@ describe Kronic do
   it_should_parse('This Monday',        date(:next_monday))
   it_should_parse('Next Monday',        date(:next_monday))
   it_should_parse('Next Mon',           date(:next_monday))
+  it_should_parse('Mon',                date(:next_monday))
   it_should_parse('4 Sep',              date(:sep_4))
   it_should_parse('4  Sep',             date(:sep_4))
   it_should_parse('4 September',        date(:sep_4))

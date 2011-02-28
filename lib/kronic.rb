@@ -18,6 +18,7 @@ class Kronic
 
     parse_nearby_days(string, now) ||
       parse_last_or_this_day(string, now) ||
+      parse_day_name(string, now) ||
       parse_exact_date(string, now) ||
       parse_iso_8601_date(string)
   end
@@ -86,19 +87,25 @@ class Kronic
       return today + 1 if string == 'tomorrow'
     end
 
+    # Parse "Monday", "Mon"
+    def parse_day_name(string, today, backwards=false)
+      days = (1..7).map {|x|
+        today + (backwards ? -x : x)
+      }.inject({}) {|a, x|
+        a.update(x.strftime("%A").downcase => x)
+        a.update(x.strftime("%a").downcase => x)
+      }
+
+      days[string]
+    end
+
     # Parse "Last Monday", "This Monday"
     def parse_last_or_this_day(string, today)
       tokens = string.split(DELIMITER)
 
       if %w(last next this).include?(tokens[0])
-        days = (1..7).map {|x|
-          today + (tokens[0] == 'last' ? -x : x)
-        }.inject({}) {|a, x|
-          a.update(x.strftime("%A").downcase => x)
-          a.update(x.strftime("%a").downcase => x)
-        }
-
-        days[tokens[1]]
+        backwards = tokens[0] == 'last'
+        parse_day_name(tokens[1], today, backwards)
       end
     end
 
