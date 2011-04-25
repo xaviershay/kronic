@@ -89,7 +89,6 @@ class Kronic
     # Parse "Last Monday", "This Monday"
     def parse_last_or_this_day(string, today)
       tokens = string.split(DELIMITER)
-      $stderr.puts tokens.inspect
 
       if %w(last this).include?(tokens[0])
         days = (1..7).map {|x|

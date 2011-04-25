@@ -69,7 +69,7 @@ describe Kronic do
   it_should_parse('1 Jan 2010',         Date.new(2010, 1, 1))
   it_should_parse('31 Dec 2010',        Date.new(2010, 12, 31))
   
-  it_should_parse('04/09/2008',           Date.new(2008, 9, 4))
+  it_should_parse('04/09/2008',         Date.new(2008, 9, 4))
   it_should_parse('4/9/2008',           Date.new(2008, 9, 4))
 
   it_should_parse('0 Jan 2010',         nil)
