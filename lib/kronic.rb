@@ -47,7 +47,7 @@ class Kronic
   class << self
     private
 
-    DELIMITER           = /[,\s]+/
+    DELIMITER           = /[,\/\s]+/
     NUMBER              = /^[0-9]+$/
     NUMBER_WITH_ORDINAL = /^([0-9]+)(st|nd|rd|th)?$/
     ISO_8601_DATE       = /^([0-9]{4})-?(1[0-2]|0?[1-9])-?(3[0-1]|[1-2][0-9]|0?[1-9])$/
@@ -89,6 +89,7 @@ class Kronic
     # Parse "Last Monday", "This Monday"
     def parse_last_or_this_day(string, today)
       tokens = string.split(DELIMITER)
+      $stderr.puts tokens.inspect
 
       if %w(last this).include?(tokens[0])
         days = (1..7).map {|x|
@@ -117,7 +118,7 @@ class Kronic
     # Parses day, month and year parts
     def parse_exact_date_parts(raw_day, raw_month, raw_year, today)
       day   = raw_day.to_i
-      month = month_from_name(raw_month)
+      month = month_from_name(raw_month) || raw_month.to_i
       year = if raw_year
         raw_year =~ NUMBER ? raw_year.to_i : nil
       else

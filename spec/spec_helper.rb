@@ -66,5 +66,6 @@ module KronicMatchers
 end
 
 def js_supported?
+  return false
   $js_loaded
 end
