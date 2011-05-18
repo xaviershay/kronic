@@ -40,7 +40,7 @@ module KronicMatchers
 
     if js_supported?
       it "should parse '#{string}' (JS)" do
-        x = @js.evaluate("Kronic").parse(string)
+        x = @js.eval("Kronic").parse(string)
 
         if x.is_a?(Time)
           x = x.to_date
@@ -59,13 +59,12 @@ module KronicMatchers
 
     if js_supported?
       it "should format '#{string}' (JS)" do
-        @js.evaluate("Kronic").format(date.to_time).should == string
+        @js.eval("Kronic").format(date.to_time).should == string
       end
     end
   end
 end
 
 def js_supported?
-  return false
   $js_loaded
 end
