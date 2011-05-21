@@ -119,7 +119,15 @@ class Kronic
       day   = raw_day.to_i
       month = month_from_name(raw_month)
       year = if raw_year
-        raw_year =~ NUMBER ? raw_year.to_i : nil
+        if raw_year =~ NUMBER
+          year_number = raw_year.to_i
+          year_number < 100 ? today.year.round(-2)+year_number : year_number
+        else
+          nil
+        end
+#year_number=raw_year.to_i
+#year_number 
+
       else
         today.year
       end

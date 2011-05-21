@@ -68,6 +68,7 @@ describe Kronic do
   it_should_parse('2008-9-4',           Date.new(2008, 9, 4))
   it_should_parse('1 Jan 2010',         Date.new(2010, 1, 1))
   it_should_parse('31 Dec 2010',        Date.new(2010, 12, 31))
+  it_should_parse('14th Sep 08',        Date.new(2008, 9, 14))
 
   it_should_parse('0 Jan 2010',         nil)
   it_should_parse('32 Dec 2010',        nil)
@@ -79,6 +80,7 @@ describe Kronic do
   it_should_parse('January 1999',       nil)
   it_should_parse('Last M',             nil)
 
+  
   it_should_format('Today',             date(:today))
   it_should_format('Yesterday',         date(:today) - 1)
   it_should_format('Tomorrow',          date(:today) + 1)
@@ -86,7 +88,7 @@ describe Kronic do
   it_should_format('This Monday',       date(:next_monday))
   it_should_format('14 September 2008', Date.new(2008, 9, 14))
   it_should_format('14 September 2008', Time.utc(2008, 9, 14))
-
+  
   describe 'timezone support' do
     before :all do
       Time.extend(MethodVisibility)
