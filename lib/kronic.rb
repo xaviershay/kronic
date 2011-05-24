@@ -120,14 +120,10 @@ class Kronic
       month = month_from_name(raw_month)
       year = if raw_year
         if raw_year =~ NUMBER
-          year_number = raw_year.to_i
-          year_number < 100 ? today.year.round(-2)+year_number : year_number
+          year_number = raw_year.length < 3 ? parse_ambiguous_century(raw_year.to_i) : raw_year.to_i
         else
           nil
         end
-#year_number=raw_year.to_i
-#year_number 
-
       else
         today.year
       end
@@ -141,6 +137,10 @@ class Kronic
       rescue ArgumentError
         nil
       end
+    end
+
+    def parse_ambiguous_century(year_number)
+      today.year.round(-2)+year_number-(year_number>today.year%100 ? 100 : 0)
     end
 
     # Parses "2010-09-04", "2010-9-4"
