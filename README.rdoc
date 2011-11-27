@@ -18,7 +18,7 @@ Supported formats: Today, yesterday, tomorrow, last thursday, this thursday, 14 
 
 Install by grabbing the latest versions direct from github:
 
-  curl http://github.com/xaviershay/kronic/raw/master/lib/js/kronic.js   > public/javascripts/kronic.js
+  curl https://raw.github.com/xaviershay/kronic/master/lib/js/kronic.js > public/javascripts/kronic.js
 
 Use with the following script:
 
