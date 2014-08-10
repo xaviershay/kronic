@@ -40,13 +40,13 @@ Oh yeah, Kronic is about 150 lines of ruby code with no dependencies, and provid
 
 Kronic does not require ActiveSupport, but if it is present Kronic will use the current time zone. In short, everything should work as you would expect.
 
-Kronic is tested on 1.8.7, 1.9.2, Rubinius 1.1, and JRuby 1.5.1.
+Kronic is tested on Ruby 2.0+.
 
 == Developing
 
   git clone git://github.com/xaviershay/kronic.git
   bundle install # May take a while, needs to install therubyracer/V8 to test JS
-  rake # Run the specs
+  bin/test       # Run the tests
   # Dive into the code at spec/kronic_spec.rb
 
 There are comments to help you along but it is pretty basic code, so everything should make sense pretty quickly. The javascript code is a direct translation of the ruby code, and as such it is undocumented - just refer back to the ruby code.

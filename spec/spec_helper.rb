@@ -1,4 +1,4 @@
-require 'rspec'
+require 'xspec'
 require 'timecop'
 require 'active_support/core_ext/integer/time'
 require 'active_support/core_ext/time/zones'
@@ -10,6 +10,7 @@ $js_loaded = begin
   true
 rescue LoadError => e
   # Can't run JS specs
+  warn "Not running JS specs."
   false
 end
 
@@ -33,20 +34,23 @@ module MethodVisibility
 end
 
 module KronicMatchers
+
   def it_should_parse(string, date)
     it "should parse '#{string}'" do
-      Kronic.parse(string).should == date
+      freeze_time do
+        assert_equal date, Kronic.parse(string)
+      end
     end
 
     if js_supported?
       it "should parse '#{string}' (JS)" do
-        x = @js.eval("Kronic").parse(string)
+        x = js.eval("Kronic").parse(string)
 
         if x.is_a?(Time)
           x = x.to_date
-          Date.new(x.year, x.month, x.day).should == date
+          assert_equal date, Date.new(x.year, x.month, x.day)
         else
-          x.should == date
+          assert_equal date, x
         end
       end
     end
@@ -54,12 +58,14 @@ module KronicMatchers
 
   def it_should_format(string, date)
     it "should format '#{string}'" do
-      Kronic.format(date).should == string
+      freeze_time do
+        assert_equal string, Kronic.format(date)
+      end
     end
 
     if js_supported?
       it "should format '#{string}' (JS)" do
-        @js.eval("Kronic").format(date.to_time).should == string
+        assert_equal string, js.eval("Kronic").format(date.to_time)
       end
     end
   end
