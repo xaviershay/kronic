@@ -1,5 +1,6 @@
 require 'date'
 
+# Main class for library, provides date parsing and formatting methods.
 class Kronic
   # Public: Converts a human readable day (today, yesterday) to a Date.
   # If Time.zone is available and set (added by active_support and rails),
@@ -50,11 +51,13 @@ class Kronic
     DELIMITER           = /[,\s]+/
     NUMBER              = /^[0-9]+$/
     NUMBER_WITH_ORDINAL = /^([0-9]+)(st|nd|rd|th)?$/
-    ISO_8601_DATE       = /^([0-9]{4})-?(1[0-2]|0?[1-9])-?(3[0-1]|[1-2][0-9]|0?[1-9])$/
+    ISO_8601_DATE       =
+      /^([0-9]{4})-?(1[0-2]|0?[1-9])-?(3[0-1]|[1-2][0-9]|0?[1-9])$/
 
-    MONTH_NAMES = Date::MONTHNAMES.zip(Date::ABBR_MONTHNAMES).flatten.compact.map {|x| 
-                    x.downcase 
-                  }
+    MONTH_NAMES =
+      Date::MONTHNAMES.zip(Date::ABBR_MONTHNAMES).flatten.compact.map {|x|
+        x.downcase
+      }
 
     # Ruby 1.8 does not provide a to_date method on Time. This methods works
     # on all rubies.

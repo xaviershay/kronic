@@ -7,34 +7,8 @@ Time.extend(MethodVisibility)
 describe Kronic do
   extend KronicMatchers
 
-  def freeze_time(&block)
-    begin
-      Time.zone = nil
-      ENV['TZ'] = "Australia/Melbourne"
-      Timecop.freeze(Time.utc(
-        date(:today).year,
-        date(:today).month,
-        date(:today).day
-      ))
-      block.call
-    ensure
-      Timecop.return
-      Time.zone = nil
-    end
-  end
-
-  def js
-    @js ||= begin
-      js = V8::Context.new
-      js['alert'] = proc {|s| puts s.inspect } # For debugging, not used normally
-      js.eval(File.open(File.dirname(__FILE__) + "/../lib/js/kronic.js").read)
-      js.eval("Kronic")['today'] = proc { date(:today).to_time }
-      js
-    end
-  end
-
-  # A constant set of dates are used for testing, the current system time is frozen
-  # to date(:today) for the duration of each test.
+  # A constant set of dates are used for testing, the current system time is
+  # frozen to date(:today) for the duration of each test.
   def self.date(key)
     {
       :today       => Date.new(2010, 9, 18),
@@ -117,6 +91,32 @@ describe Kronic do
         assert_equal date(:today), Kronic.parse("today")
         assert_equal "Today", Kronic.format(date(:today))
       end
+    end
+  end
+
+  def freeze_time(&block)
+    begin
+      Time.zone = nil
+      ENV['TZ'] = "Australia/Melbourne"
+      Timecop.freeze(Time.utc(
+        date(:today).year,
+        date(:today).month,
+        date(:today).day
+      ))
+      block.call
+    ensure
+      Timecop.return
+      Time.zone = nil
+    end
+  end
+
+  def js
+    @js ||= begin
+      js = V8::Context.new
+      js['alert'] = proc {|s| puts s.inspect } # For debugging
+      js.eval(File.open(File.dirname(__FILE__) + "/../lib/js/kronic.js").read)
+      js.eval("Kronic")['today'] = proc { date(:today).to_time }
+      js
     end
   end
 end
