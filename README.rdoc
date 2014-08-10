@@ -40,7 +40,7 @@ Oh yeah, Kronic is about 150 lines of ruby code with no dependencies, and provid
 
 Kronic does not require ActiveSupport, but if it is present Kronic will use the current time zone. In short, everything should work as you would expect.
 
-Kronic is tested on 1.9.3+, Rubinius, and JRuby.
+Kronic is tested on Ruby 2.0+.
 
 == Developing
 
