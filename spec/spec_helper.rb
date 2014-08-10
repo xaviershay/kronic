@@ -33,14 +33,17 @@ module MethodVisibility
 end
 
 module KronicMatchers
+
   def it_should_parse(string, date)
     it "should parse '#{string}'" do
-      Kronic.parse(string).should == date
+      freeze_time do
+        Kronic.parse(string).should == date
+      end
     end
 
     if js_supported?
       it "should parse '#{string}' (JS)" do
-        x = @js.eval("Kronic").parse(string)
+        x = js.eval("Kronic").parse(string)
 
         if x.is_a?(Time)
           x = x.to_date
@@ -54,12 +57,14 @@ module KronicMatchers
 
   def it_should_format(string, date)
     it "should format '#{string}'" do
-      Kronic.format(date).should == string
+      freeze_time do
+        Kronic.format(date).should == string
+      end
     end
 
     if js_supported?
       it "should format '#{string}' (JS)" do
-        @js.eval("Kronic").format(date.to_time).should == string
+        js.eval("Kronic").format(date.to_time).should == string
       end
     end
   end
