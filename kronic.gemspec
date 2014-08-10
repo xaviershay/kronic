@@ -20,7 +20,6 @@ Gem::Specification.new do |s|
                      kronic.gemspec
                    )
 
-  s.add_development_dependency 'rake'
   s.add_development_dependency 'xspec'
   s.add_development_dependency 'timecop'
   s.add_development_dependency 'activesupport'

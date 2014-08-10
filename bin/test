@@ -1,0 +1,6 @@
+#!/bin/bash
+
+set -ex
+
+bundle exec xspec
+!(which jsl) || jsl -nologo -process lib/js/kronic.js
