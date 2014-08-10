@@ -1,5 +1,7 @@
 require 'spec_helper'
 
+extend XSpec.dsl
+
 Time.extend(MethodVisibility)
 
 describe Kronic do
@@ -95,16 +97,16 @@ describe Kronic do
     it 'should be timezone aware if activesupport Time.zone is set' do
       freeze_time do
         Time.zone = "US/Eastern"
-        Kronic.parse("today").should == date(:today) - 1
-        Kronic.format(date(:today) - 1).should == "Today"
+        assert_equal date(:today) - 1, Kronic.parse("today")
+        assert_equal "Today", Kronic.format(date(:today) - 1)
       end
     end
 
     it 'should fallback to Date.today if Time.zone is not available' do
       freeze_time do
         Time.hide_class_method(:zone) do
-          Kronic.parse("today").should == date(:today)
-          Kronic.format(date(:today)).should == "Today"
+          assert_equal date(:today), Kronic.parse("today")
+          assert_equal "Today", Kronic.format(date(:today))
         end
       end
     end
@@ -112,8 +114,8 @@ describe Kronic do
     it 'should fallback to Date.today if Time.zone is not set' do
       freeze_time do
         Time.zone = nil
-        Kronic.parse("today").should == date(:today)
-        Kronic.format(date(:today)).should == "Today"
+        assert_equal date(:today), Kronic.parse("today")
+        assert_equal "Today", Kronic.format(date(:today))
       end
     end
   end

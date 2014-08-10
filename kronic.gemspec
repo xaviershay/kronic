@@ -4,7 +4,7 @@ Gem::Specification.new do |s|
   s.summary  = 'A dirt simple library for parsing and formatting human readable dates'
   s.platform = Gem::Platform::RUBY
   s.authors  = ["Xavier Shay"]
-  s.email    = ["hello@xaviershay.com"]
+  s.email    = ["contact@xaviershay.com"]
   s.homepage = "http://github.com/xaviershay/kronic"
   s.has_rdoc = false
 
@@ -21,7 +21,7 @@ Gem::Specification.new do |s|
                    )
 
   s.add_development_dependency 'rake'
-  s.add_development_dependency 'rspec', '~> 2.5'
+  s.add_development_dependency 'xspec'
   s.add_development_dependency 'timecop'
   s.add_development_dependency 'activesupport'
   s.add_development_dependency 'i18n'

@@ -1,4 +1,4 @@
-require 'rspec'
+require 'xspec'
 require 'timecop'
 require 'active_support/core_ext/integer/time'
 require 'active_support/core_ext/time/zones'
@@ -37,7 +37,7 @@ module KronicMatchers
   def it_should_parse(string, date)
     it "should parse '#{string}'" do
       freeze_time do
-        Kronic.parse(string).should == date
+        assert_equal date, Kronic.parse(string)
       end
     end
 
@@ -47,9 +47,9 @@ module KronicMatchers
 
         if x.is_a?(Time)
           x = x.to_date
-          Date.new(x.year, x.month, x.day).should == date
+          assert_equal date, Date.new(x.year, x.month, x.day)
         else
-          x.should == date
+          assert_equal date, x
         end
       end
     end
@@ -58,13 +58,13 @@ module KronicMatchers
   def it_should_format(string, date)
     it "should format '#{string}'" do
       freeze_time do
-        Kronic.format(date).should == string
+        assert_equal string, Kronic.format(date)
       end
     end
 
     if js_supported?
       it "should format '#{string}' (JS)" do
-        js.eval("Kronic").format(date.to_time).should == string
+        assert_equal string, js.eval("Kronic").format(date.to_time)
       end
     end
   end
