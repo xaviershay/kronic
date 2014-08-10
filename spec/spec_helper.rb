@@ -10,6 +10,7 @@ $js_loaded = begin
   true
 rescue LoadError => e
   # Can't run JS specs
+  warn "Not running JS specs."
   false
 end
 

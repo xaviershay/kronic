@@ -9,7 +9,6 @@ GEM
     activesupport (3.0.7)
     i18n (0.5.0)
     libv8 (3.16.14.3)
-    rake (0.8.7)
     ref (1.0.5)
     therubyracer (0.12.1)
       libv8 (~> 3.16.14.0)
@@ -26,7 +25,6 @@ DEPENDENCIES
   bundler
   i18n
   kronic!
-  rake
   therubyracer
   timecop
   tzinfo
