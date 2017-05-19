@@ -49,6 +49,14 @@ describe Kronic do
   it_should_parse('1 Jan 2010',         Date.new(2010, 1, 1))
   it_should_parse('31 Dec 2010',        Date.new(2010, 12, 31))
 
+  it_should_parse('14th Sep 08',        Date.new(2008, 9, 14))
+  it_should_parse('14th Sep 10',        Date.new(2010, 9, 14))
+  it_should_parse('14th Sep 11',        Date.new(1911, 9, 14))
+  it_should_parse('14th Sep 0',         Date.new(2000, 9, 14))
+  it_should_parse('14th Sep 99',        Date.new(1999, 9, 14))
+  it_should_parse('14th Sep 1895',      Date.new(1895, 9, 14))
+  #it_should_parse('14th Sep 1894',      Date.new(1894, 9, 14))
+
   it_should_parse('0 Jan 2010',         nil)
   it_should_parse('32 Dec 2010',        nil)
   it_should_parse('366 Jan 2010',       nil)
@@ -59,6 +67,7 @@ describe Kronic do
   it_should_parse('January 1999',       nil)
   it_should_parse('Last M',             nil)
 
+  
   it_should_format('Today',             date(:today))
   it_should_format('Yesterday',         date(:today) - 1)
   it_should_format('Tomorrow',          date(:today) + 1)
@@ -66,7 +75,7 @@ describe Kronic do
   it_should_format('This Monday',       date(:next_monday))
   it_should_format('14 September 2008', Date.new(2008, 9, 14))
   it_should_format('14 September 2008', Time.utc(2008, 9, 14))
-
+  
   describe 'timezone support' do
     it 'should be timezone aware if activesupport Time.zone is set' do
       freeze_time do
